@@ -4,6 +4,9 @@ Use Linux perf for some region of Ruby code easily.
 
 ## Usage
 
+Run as root to use perf. Otherwise it just executes a given block.
+
+
 ### perf record
 
 ```rb
@@ -22,7 +25,7 @@ end
 ### perf stat
 
 ```rb
-Perf.stat do
+Perf.stat('-e', 'cycles,instructions,branches,branch-misses') do
   50000.times { bench }
 end
 ```
