@@ -10,6 +10,8 @@ Run as root to use perf. Otherwise it just executes a given block.
 ### perf record
 
 ```rb
+require 'erb'
+
 def bench
   ERB.new('<%= 1 %>').render
 end
