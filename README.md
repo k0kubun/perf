@@ -13,11 +13,13 @@ Run as root to use perf. Otherwise it just executes a given block.
 require 'erb'
 
 def bench
-  ERB.new('<%= 1 %>').render
+  ERB.new('<%= 1 %>').result
 end
 
 10000.times { bench }
-RubyVM::MJIT.pause
+if RubyVM::MJIT.enabled?
+  RubyVM::MJIT.pause
+end
 
 Perf.record do
   50000.times { bench }
