@@ -22,7 +22,7 @@ if RubyVM::MJIT.enabled?
   RubyVM::MJIT.pause
 end
 
-Perf.record do
+Perf.record(count: 5000) do
   50000.times { bench }
 end
 ```
@@ -30,7 +30,7 @@ end
 ### perf stat
 
 ```rb
-Perf.stat('-e', 'cycles,instructions,branches,branch-misses') do
+Perf.stat(event: %w[cycles instructions branches branch-misses]) do
   50000.times { bench }
 end
 ```

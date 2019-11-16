@@ -1,17 +1,23 @@
 require 'perf/version'
 
 class << Perf
-  def record(*args, &block)
+  def record(*args, count: nil, &block)
+    if count
+      args = args.dup.push('-c', count.to_s)
+    end
     with_perf('record', *args, &block)
   end
 
-  def stat(*args)
+  def stat(*args, event: nil, &block)
+    if event
+      args = args.dup.push('-e', event.join(','))
+    end
     with_perf('stat', *args, &block)
   end
 
   private
 
-  def with_perf(*args)
+  def with_perf(*args, count: nil)
     if ENV['USER'] == 'root'
       pid = Process.spawn('perf', *args, '-p', Process.pid.to_s)
     end
