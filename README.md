@@ -11,6 +11,7 @@ Run as root to use perf. Otherwise it just executes a given block.
 
 ```rb
 require 'erb'
+require 'perf'
 
 def bench
   ERB.new('<%= 1 %>').result
