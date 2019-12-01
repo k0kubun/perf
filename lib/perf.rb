@@ -1,9 +1,14 @@
 require 'perf/version'
 
 class << Perf
-  def record(*args, count: nil, &block)
+  def record(*args, count: nil, call_graph: nil, &block)
+    args = args.dup
     if count
-      args = args.dup.push('-c', count.to_s)
+      args.push('-c', count.to_s)
+    end
+    if call_graph
+      call_graph = 'fp' if call_graph == true
+      args.push('--call-graph', call_graph)
     end
     with_perf('record', *args, &block)
   end
