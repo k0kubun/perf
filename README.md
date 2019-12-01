@@ -22,7 +22,7 @@ if RubyVM::MJIT.enabled?
   RubyVM::MJIT.pause
 end
 
-Perf.record(count: 5000) do
+Perf.record(count: 5000, call_graph: :dwarf) do
   50000.times { bench }
 end
 ```

@@ -8,7 +8,7 @@ class << Perf
     end
     if call_graph
       call_graph = 'fp' if call_graph == true
-      args.push('--call-graph', call_graph)
+      args.push('--call-graph', call_graph.to_s)
     end
     with_perf('record', *args, &block)
   end
